@@ -1,0 +1,9 @@
+{
+    "python.jediEnabled": true,
+    "eslint.packageManager": "yarn",
+    "eslint.enable": true,
+    "python.linting.flake8Enabled": true,
+    "python.linting.pylintEnabled": false,
+    "python.venvPath": "/Users/kkomarag/.local/share/virtualenvs",
+    "python.pythonPath": "/Users/kkomarag/.local/share/virtualenvs/PythonReact-BQmQ_Q9A/bin/python"
+}

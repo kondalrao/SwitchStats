@@ -1,0 +1,88 @@
+{
+  "name": "static",
+  "version": "1.0.0",
+  "description": "React App",
+  "main": "index.js",
+  "scripts": {
+    "prebuild": "rm -rf dist build",
+    "dev": "cross-env NODE_ENV=development parcel ./public/index.html -p 3000 --open --no-cache",
+    "build": "cross-env NODE_ENV=production parcel build ./public/index.html -d build --public-url ./ --no-cache",
+    "watch": "cross-env NODE_ENV=development parcel watch ./public/index.html --public-url ./static --no-cache",
+    "format:js": "prettier --write './src/**/*.{js,jsx,json,md}'",
+    "format:style": "prettier-stylelint --write './src/**/*.js'",
+    "format": "npm run format:js && npm run format:style",
+    "lint:style": "stylelint './src/**/*.js' --formatter verbose; exit 0",
+    "lint:js": "eslint './src/**/*.{js,jsx,json,md}'; exit 0",
+    "lint": "npm run lint:style && npm run lint:js",
+    "test": "jest; exit 0",
+    "test:watch": "jest --watch",
+    "test:coverage": "jest --coverage"
+  },
+  "author": "Kondal Rao Komaragiri",
+  "dependencies": {
+    "babel-runtime": "^6.26.0",
+    "chart.js": "^2.7.2",
+    "connection": "^0.0.0",
+    "d3": "^5.7.0",
+    "lodash": "^4.17.11",
+    "prop-types": "^15.6.2",
+    "raf": "^3.4.0",
+    "react": "^16.5.2",
+    "react-autobind": "^1.0.6",
+    "react-chartjs-2": "^2.7.4",
+    "react-dazzle": "^1.4.0",
+    "react-dom": "^16.5.2",
+    "react-model": "^0.0.0",
+    "react-transition-group": "^2.5.0",
+    "ringjs": "^0.0.1",
+    "rxjs": "^6.3.3",
+    "rxjs-compat": "^6.3.3",
+    "socket.io-client": "^2.1.1",
+    "styled-components": "^3.4.9",
+    "victory": "^30.5.0"
+  },
+  "devDependencies": {
+    "babel-core": "^6.26.3",
+    "babel-eslint": "^10.0.1",
+    "babel-jest": "^23.6.0",
+    "babel-plugin-transform-class-properties": "^6.24.1",
+    "babel-plugin-transform-object-rest-spread": "^6.26.0",
+    "babel-plugin-transform-runtime": "^6.23.0",
+    "babel-preset-env": "^1.7.0",
+    "babel-preset-react": "^6.24.1",
+    "cross-env": "^5.2.0",
+    "enzyme": "^3.7.0",
+    "enzyme-adapter-react-16": "^1.6.0",
+    "enzyme-to-json": "^3.3.4",
+    "eslint": "^5.6.1",
+    "eslint-plugin-import": "^2.14.0",
+    "eslint-plugin-jest": "^21.24.1",
+    "eslint-plugin-markdown": "^1.0.0-beta.6",
+    "eslint-plugin-react": "^7.11.1",
+    "identity-obj-proxy": "^3.0.0",
+    "jest": "^23.6.0",
+    "parcel-bundler": "^1.10.3",
+    "prettier": "^1.14.3",
+    "prettier-stylelint": "^0.4.2",
+    "react-test-renderer": "^16.5.2",
+    "stylelint": "^9.6.0",
+    "stylelint-config-standard": "^18.2.0",
+    "stylelint-config-styled-components": "^0.1.1",
+    "stylelint-processor-styled-components": "^1.4.0",
+    "stylelint-scss": "^3.3.1"
+  },
+  "jest": {
+    "setupFiles": [
+      "./config/jestSetup.js"
+    ],
+    "collectCoverageFrom": [
+      "src/**/*.{js,jsx}"
+    ],
+    "snapshotSerializers": [
+      "enzyme-to-json/serializer"
+    ],
+    "moduleNameMapper": {
+      "^.+\\.(css|scss|jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$": "identity-obj-proxy"
+    }
+  }
+}
