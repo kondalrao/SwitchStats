@@ -1,2 +1,2 @@
-# IntfStats
-Interface Statistics
+# SwitchStats
+Switch Statistics
