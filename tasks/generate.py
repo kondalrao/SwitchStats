@@ -33,12 +33,12 @@ vendors = [
     'vendor/flask/dist/Flask-1.1.dev0-py2.7.egg',
     'vendor/Flask-SocketIO/dist/Flask_SocketIO-3.0.2-py2.7.egg',
     'vendor/python-socketio/dist/python_socketio-2.0.0-py2.7.egg',
-    'vendor/itsdangerous/dist/itsdangerous-1.0.dev20180927-py2.7.egg',
+    'vendor/itsdangerous/dist/itsdangerous-1.1.0-py2.7.egg',
     'vendor/jinja/dist/Jinja2-2.11.dev0-py2.7.egg',
     'vendor/werkzeug/dist/Werkzeug-0.15.dev0-py2.7.egg',
     'vendor/markupsafe/dist/MarkupSafe-1.1.dev0-py2.7-macosx-10.13-x86_64.egg',
     'vendor/click/dist/Click-8.0.dev0-py2.7.egg',
-    'vendor/python-engineio/dist/python_engineio-2.3.0-py2.7.egg',
+    'vendor/python-engineio/dist/python_engineio-2.3.2-py2.7.egg',
 ]
 
 nxos_libs = {
@@ -91,7 +91,7 @@ print("[generate.installer] Generating installer {} ".format(
 def installer(ctx):
     zfile = io.BytesIO()
 
-    # build_vendor_modules(ctx)
+    build_vendor_modules(ctx)
     add_static_files()
 
     with io.open(template_path, "r", encoding="utf8") as fp:
