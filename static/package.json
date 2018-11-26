@@ -1,0 +1,65 @@
+{
+  "name": "static",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "staticPath": [
+    "public",
+    "vendor/public"
+  ],
+  "nodemonConfig": {
+    "ignore": ["src/*", "dist/*", ".cache/*"]
+  },
+  "scripts": {
+    "start": "parcel src/index.html --open",
+    "build": "parcel build --public-url . src/index.html ",
+    "clean": "rimraf dist .cache",
+    "predeploy": "yarn run clean -s && yarn run build -s",
+    "deploy": "gh-pages -d dist",
+    "lint": "./node_modules/.bin/standard",
+    "lint-fix": "./node_modules/.bin/standard --fix",
+    "view-source-map": "source-map-explorer --html dist/index.js dist/index.map > source.html && open source.html"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.1.5",
+    "@babel/core": "^7.1.6",
+    "@babel/plugin-proposal-class-properties": "^7.1.0",
+    "@babel/plugin-proposal-object-rest-spread": "^7.0.0",
+    "@babel/plugin-transform-regenerator": "^7.0.0",
+    "@babel/plugin-transform-runtime": "^7.1.0",
+    "@babel/preset-env": "^7.1.6",
+    "@babel/preset-flow": "^7.0.0",
+    "@babel/preset-react": "^7.0.0",
+    "babel-eslint": "^10.0.1",
+    "babel-plugin-import": "^1.11.0",
+    "body-parser": "^1.18.3",
+    "eslint": "^5.9.0",
+    "eslint-plugin-import": "^2.14.0",
+    "eslint-plugin-react": "^7.11.1",
+    "express": "^4.16.4",
+    "express-debug": "^1.1.1",
+    "flow-bin": "^0.86.0",
+    "less": "^2.7.3",
+    "parcel-bundler": "^1.10.3",
+    "parcel-plugin-bundle-manifest": "^0.2.0",
+    "parcel-plugin-static-files-copy": "^1.2.4",
+    "rimraf": "^2.6.2",
+    "socket.io": "^2.1.1",
+    "source-map-explorer": "^1.6.0",
+    "standard": "^12.0.1"
+  },
+  "dependencies": {
+    "@rematch/core": "^1.0.6",
+    "antd": "^3.10.9",
+    "babel-polyfill": "^6.26.0",
+    "lodash": "^4.17.11",
+    "moment": "^2.22.2",
+    "prop-types": "^15.6.2",
+    "react": ">=15",
+    "react-dom": "^16.6.3",
+    "react-redux": "^5.1.1",
+    "react-router": "^4.3.1",
+    "react-router-dom": "^4.3.1",
+    "superagent": "^4.0.0"
+  }
+}
