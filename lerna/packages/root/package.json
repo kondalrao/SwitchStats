@@ -1,0 +1,38 @@
+{
+  "name": "@switch-stats/root",
+  "version": "0.0.0",
+  "description": "Root Web",
+  "author": "Kondal Rao Komaragiri <kondal04@gmail.com>",
+  "homepage": "https://github.com/kondalrao/SwitchStats#readme",
+  "license": "MIT",
+  "main": "index.js",
+  "staticPath": [
+    "public",
+    "vendor/public"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://kondalrao@github.com/kondalrao/SwitchStats.git"
+  },
+  "scripts": {
+    "start": "parcel src/index.html --out-dir ../../dist",
+    "clean": "rimraf dist .cache",
+    "test": "echo \"Error: run tests from root\" && exit 1",
+    "view-source-map": "source-map-explorer --html dist/index.js dist/index.map > source.html && open source.html"
+  },
+  "bugs": {
+    "url": "https://github.com/kondalrao/SwitchStats/issues"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.1.6"
+  },
+  "dependencies": {
+    "@rematch/core": "^1.0.6",
+    "@switch-stats/models": "^1.0.0",
+    "react": "^16.6.3",
+    "react-dom": "^16.6.3",
+    "react-redux": "^5.1.1",
+    "react-router": "^4.3.1",
+    "react-router-dom": "^4.3.1"
+  }
+}
