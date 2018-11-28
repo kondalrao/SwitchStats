@@ -11,7 +11,9 @@
     "url": "git+https://kondalrao@github.com/kondalrao/SwitchStats.git"
   },
   "scripts": {
-    "start": "DEBUG=* node server.js",
+    "start": "DEBUG=* nodemon server.js",
+    "clean": "rimraf node_modules",
+    "cleanall": "yarn clean",
     "test": "echo \"Error: run tests from root\" && exit 1"
   },
   "bugs": {

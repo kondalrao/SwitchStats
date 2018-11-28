@@ -9,11 +9,13 @@
     "server/*"
   ],
   "scripts": {
-    "start:server": "lerna run start --stream --scope=@switch-stats/express.io",
-    "start:web": "lerna run start --stream --scope=@switch-stats/root",
-    "start": "lerna run start --stream --bail",
+    "start:express": "lerna run start --stream --scope=@switch-stats/express.io --bail",
+    "start:feathers": "lerna exec --scope @switch-stats/feathers -- yarn start --color --bail",
+    "start:web": "lerna run start --stream --scope=@switch-stats/webroot --bail",
+    "start": "yarn start:web & yarn start:feathers",
     "clean": "lerna run clean --stream",
-    "cleanall": "lerna run cleanall --stream"
+    "distclean": "rimraf ./dist ./node_modules",
+    "cleanall": "yarn distclean & lerna run cleanall --stream"
   },
   "devDependencies": {
     "@babel/cli": "^7.1.5",
@@ -42,6 +44,9 @@
   },
   "dependencies": {
     "@rematch/core": "^1.0.6",
+    "config": "^3.0.0",
+    "debug": "^4.1.0",
+    "less": "^2.7.3",
     "lodash": "^4.17.11",
     "moment": "^2.22.2",
     "react": "^16.6.3",

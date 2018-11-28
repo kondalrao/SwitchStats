@@ -1,3 +1,4 @@
+const path = require('path');
 
 const versionOBJ = {
     "header_str": "Cisco Nexus Operating System (NX-OS) Software\nTAC support: http://www.cisco.com/tac\nCopyright (C) 2002-2018, Cisco and/or its affiliates.\nAll rights reserved.\nThe copyrights \
@@ -46,7 +47,12 @@ var appRouter = function (app) {
     app.get("/version", function(req, res) {
         res.setHeader("Content-Type", "application/json");
         res.status(200).send(version)
-    })
+    });
+
+    // Handles any requests that don't match the ones above
+    app.get('*', (req, res) =>{
+        res.sendFile(path.join(__dirname, '..', '..', 'dist', 'index.html'));
+    });
 }
 
   module.exports = appRouter;
