@@ -1,10 +1,11 @@
-import React from 'react';
+import React, { Component } from 'react'
 import ReactDOM from 'react-dom'
+import { BrowserRouter } from 'react-router-dom'
 import { init } from "@rematch/core";
 import { Provider } from "react-redux";
 
 import * as models from "@switch-stats/models";
-// import AntdApp from './index.antd'
+import AntdApp from '@switch-stats/antd-ui'
 
 // generate Redux store
 const store = init({
@@ -13,7 +14,11 @@ const store = init({
 
 const App = () => {
     return (
-            <div>Hello World</div>
+        <Provider store={store}>
+            <BrowserRouter>
+                <AntdApp/>
+            </BrowserRouter>
+        </Provider>
     );
 }
 

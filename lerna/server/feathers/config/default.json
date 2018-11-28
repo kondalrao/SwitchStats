@@ -1,0 +1,7 @@
+{
+    "server": {
+        "port": 4000,
+        "socketio-port": 4001,
+        "monitor-port": 4002
+    }
+}

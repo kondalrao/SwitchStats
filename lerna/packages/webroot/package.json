@@ -1,11 +1,11 @@
 {
-  "name": "@switch-stats/root",
+  "name": "@switch-stats/webroot",
   "version": "0.0.0",
   "description": "Root Web",
   "author": "Kondal Rao Komaragiri <kondal04@gmail.com>",
   "homepage": "https://github.com/kondalrao/SwitchStats#readme",
   "license": "MIT",
-  "main": "index.js",
+  "main": "src/index.js",
   "staticPath": [
     "public",
     "vendor/public"
@@ -15,8 +15,10 @@
     "url": "git+https://kondalrao@github.com/kondalrao/SwitchStats.git"
   },
   "scripts": {
-    "start": "parcel src/index.html --out-dir ../../dist",
-    "clean": "rimraf dist .cache",
+    "start": "parcel watch src/index.html --out-dir ../../dist",
+    "start:dev": "parcel src/index.html --out-dir ../../dist --log-level 3",
+    "clean": "rimraf .cache",
+    "cleanall": "yarn clean",
     "test": "echo \"Error: run tests from root\" && exit 1",
     "view-source-map": "source-map-explorer --html dist/index.js dist/index.map > source.html && open source.html"
   },
@@ -28,7 +30,8 @@
   },
   "dependencies": {
     "@rematch/core": "^1.0.6",
-    "@switch-stats/models": "^1.0.0",
+    "@switch-stats/antd-ui": "^0.0.0",
+    "@switch-stats/models": "^0.0.0",
     "react": "^16.6.3",
     "react-dom": "^16.6.3",
     "react-redux": "^5.1.1",
