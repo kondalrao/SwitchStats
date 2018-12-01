@@ -29,4 +29,7 @@ const mapDispatchToProps = dispatch => ({
     loadData: id => dispatch.switchDetails.loadData()
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(Page1);
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps
+  )(Page1);
