@@ -1,0 +1,13 @@
+{
+    "presets": ["@babel/preset-env", "@babel/preset-react", "@babel/preset-flow"],
+    "plugins": [
+      ["@babel/plugin-proposal-decorators", { "legacy": true }],
+      ["@babel/plugin-proposal-class-properties", {}, "@babel/plugin-proposal-class-properties"],
+      ["@babel/transform-runtime", {}, "@babel/transform-runtime"],
+      ["@babel/transform-regenerator", {}, "@babel/transform-regenerator"],
+      ["@babel/proposal-object-rest-spread", {}, "@babel/proposal-object-rest-spread"],
+      ["import", { "libraryName": "antd", "libraryDirectory": "es", "style": "css" }, "antd"],
+      ["import", { "libraryName": "lodash", "libraryDirectory": "", "camel2DashComponentName": false }, "lodash"],
+      ["import", { "libraryName": "ant-design-pro", "libraryDirectory": "lib", "style": true, "camel2DashComponentName": false }, "antd-pro"]
+    ]
+  }

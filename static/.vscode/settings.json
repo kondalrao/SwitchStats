@@ -1,0 +1,19 @@
+{
+  "editor.tabSize": 2,
+  "editor.renderWhitespace": "all",
+  "editor.renderIndentGuides": true,
+  "editor.formatOnSave": false,
+  "workbench.editor.showTabs": false,
+  "stylelint.enable": true,
+  "search.exclude": {
+    "**/node_modules": true
+  },
+  "files.associations": {
+    "*.js": "javascriptreact"
+  },
+  "javascript.validate.enable": false,
+  "javascript.format.enable": false,
+  "eslint.autoFixOnSave": true,
+  "eslint.alwaysShowStatus": true,
+  "prettier.eslintIntegration": true
+}
