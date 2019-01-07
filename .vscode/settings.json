@@ -1,5 +1,5 @@
 {
-    "python.jediEnabled": true,
+    "python.jediEnabled": false,
     "eslint.packageManager": "yarn",
     "eslint.enable": true,
     "python.linting.flake8Enabled": true,
