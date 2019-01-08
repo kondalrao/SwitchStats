@@ -1,8 +1,9 @@
 import sys
 
+
 def main(filename=None):
     from serverFlask import app
-    app.debug = True
+    app.debug = False
     app.config['zfile'] = filename
     app.run(host='0.0.0.0', port=5000)
 

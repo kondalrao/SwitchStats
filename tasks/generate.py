@@ -3,7 +3,7 @@ import io
 import os
 import os.path
 import zipfile
-import invoke
+from invoke import task, call, run
 from pprint import pprint
 
 
@@ -42,9 +42,10 @@ vendors = [
 ]
 
 nxos_libs = {
-    # 'greenlet.so': 'nxos_libs/greenlet.so',
-    # 'markupsafe/_speedups.so': 'nxos_libs/_speedups.so'
+    'greenlet.so': 'nxos_libs/greenlet.so',
+    'markupsafe/_speedups.so': 'nxos_libs/_speedups.so'
 }
+
 
 def _path(name='bcm.py'):
     return os.path.join(PROJECT_ROOT, name)
@@ -56,24 +57,24 @@ def _template(name="default.py"):
 
 def build_vendor_modules(ctx):
     # Start building the vendor modules
-    ctx.run('pushd vendor/eventlet ; python setup.py --no-user-cfg bdist_egg ; popd', echo=False)
-    ctx.run('pushd vendor/python-fire ; python setup.py --no-user-cfg bdist_egg ; popd', echo=False)
-    ctx.run('pushd vendor/python-socketio ; python setup.py --no-user-cfg bdist_egg ; popd', echo=False)
-    ctx.run('pushd vendor/flask ; python setup.py --no-user-cfg bdist_egg ; popd', echo=False)
-    ctx.run('pushd vendor/Flask-SocketIO ; python setup.py --no-user-cfg bdist_egg ; popd', echo=False)
-    ctx.run('pushd vendor/itsdangerous ; python setup.py --no-user-cfg bdist_egg ; popd', echo=False)
-    ctx.run('pushd vendor/jinja ; python setup.py --no-user-cfg bdist_egg ; popd', echo=False)
-    ctx.run('pushd vendor/werkzeug ; python setup.py --no-user-cfg bdist_egg ; popd', echo=False)
-    ctx.run('pushd vendor/greenlet ; python setup.py --no-user-cfg bdist_egg ; popd', echo=False)    # HAS GCC #
-    ctx.run('pushd vendor/markupsafe ; python setup.py --no-user-cfg bdist_egg ; popd', echo=False)  # HAS GCC #
-    ctx.run('pushd vendor/click ; python setup.py --no-user-cfg bdist_egg ; popd', echo=False)
-    ctx.run('pushd vendor/python-engineio ; python setup.py --no-user-cfg bdist_egg ; popd', echo=False)
+    ctx.run('pushd vendor/greenlet ; PYTHONPATH=.. python -s setup.py --no-user-cfg bdist_egg ; popd', echo=False)    # HAS GCC #
+    ctx.run('pushd vendor/eventlet ; PYTHONPATH=.. python -s setup.py --no-user-cfg bdist_egg ; popd', echo=False)
+    ctx.run('pushd vendor/python-fire ; PYTHONPATH=.. python -s setup.py --no-user-cfg bdist_egg ; popd', echo=False)
+    ctx.run('pushd vendor/python-socketio ; PYTHONPATH=.. python -s setup.py --no-user-cfg bdist_egg ; popd', echo=False)
+    ctx.run('pushd vendor/flask ; PYTHONPATH=.. python -s setup.py --no-user-cfg bdist_egg ; popd', echo=False)
+    ctx.run('pushd vendor/Flask-SocketIO ; PYTHONPATH=.. python -s setup.py --no-user-cfg bdist_egg ; popd', echo=False)
+    ctx.run('pushd vendor/itsdangerous ; PYTHONPATH=.. python -s setup.py --no-user-cfg bdist_egg ; popd', echo=False)
+    ctx.run('pushd vendor/jinja ; PYTHONPATH=.. python -s setup.py --no-user-cfg bdist_egg ; popd', echo=False)
+    ctx.run('pushd vendor/werkzeug ; PYTHONPATH=.. python -s setup.py --no-user-cfg bdist_egg ; popd', echo=False)
+    ctx.run('pushd vendor/markupsafe ; PYTHONPATH=.. python -s setup.py --no-user-cfg bdist_egg ; popd', echo=False)  # HAS GCC #
+    ctx.run('pushd vendor/click ; PYTHONPATH=.. python -s setup.py --no-user-cfg bdist_egg ; popd', echo=False)
+    ctx.run('pushd vendor/python-engineio ; PYTHONPATH=.. python -s setup.py --no-user-cfg bdist_egg ; popd', echo=False)
 
 
 def add_static_files():
-    static_folder = os.path.join('static', 'build')
+    static_folder = os.path.join('static', 'dist')
     for file in os.listdir(static_folder):
-        from_file = os.path.join('static', 'build', file)
+        from_file = os.path.join('static', 'dist', file)
         to_file = os.path.join('static', file)
         print from_file, to_file
         files.append((from_file, to_file))
@@ -82,13 +83,13 @@ def add_static_files():
 installer_path = _path()
 template_path = _template()
 
-print("[generate.installer] Generating installer {} ".format(
-    installer_path
-))
 
+@task(default=True)
+def generate(ctx):
+    print("[generate.installer] Generating installer {} ".format(
+        installer_path
+    ))
 
-@invoke.task
-def installer(ctx):
     zfile = io.BytesIO()
 
     build_vendor_modules(ctx)
@@ -140,11 +141,21 @@ def installer(ctx):
     print("[generate.installer] Generated installer.")
 
 
-@invoke.task(
-    default=True,
-    pre=[
-        invoke.call(installer)
-    ],
-)
-def all(ctx):
-    pass
+@task
+def deploy(ctx, ip='172.22.40.33', user="admin"):
+    run('scp bcm.py {}@{}:/scripts/test.py'.format(user, ip))
+
+
+@task
+def test(ctx, ip='172.22.40.33', user="admin"):
+    run('ssh -l {} {} python bootflash:scripts/test.py'.format(user, ip))
+
+
+# @task(
+#     default=True,
+#     # pre=[
+#     #     call(installer)
+#     # ],
+# )
+# def all(ctx):
+#     call(installer)
