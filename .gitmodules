@@ -34,3 +34,24 @@
 [submodule "vendor/werkzeug"]
 	path = vendor/werkzeug
 	url = https://github.com/pallets/werkzeug.git
+[submodule "vendor/huey"]
+	path = vendor/huey
+	url = https://github.com/coleifer/huey.git
+[submodule "vendor/enum34"]
+	path = vendor/enum34
+	url = https://github.com/tagoh/enum34.git
+[submodule "vendor/monotonic"]
+	path = vendor/monotonic
+	url = https://github.com/atdt/monotonic.git
+[submodule "vendor/six"]
+	path = vendor/six
+	url = https://github.com/benjaminp/six.git
+[submodule "vendor/peewee"]
+	path = vendor/peewee
+	url = https://github.com/coleifer/peewee.git
+[submodule "vendor/multitasking"]
+	path = vendor/multitasking
+	url = https://github.com/ranaroussi/multitasking.git
+[submodule "vendor/easyprocess"]
+	path = vendor/easyprocess
+	url = https://github.com/ponty/EasyProcess.git

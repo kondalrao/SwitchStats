@@ -42,8 +42,8 @@ vendors = [
 ]
 
 nxos_libs = {
-    'greenlet.so': 'nxos_libs/greenlet.so',
-    'markupsafe/_speedups.so': 'nxos_libs/_speedups.so'
+    # 'greenlet.so': 'nxos_libs/greenlet.so',
+    # 'markupsafe/_speedups.so': 'nxos_libs/_speedups.so'
 }
 
 
@@ -56,19 +56,14 @@ def _template(name="default.py"):
 
 
 def build_vendor_modules(ctx):
-    # Start building the vendor modules
-    ctx.run('pushd vendor/greenlet ; PYTHONPATH=.. python -s setup.py --no-user-cfg bdist_egg ; popd', echo=False)    # HAS GCC #
-    ctx.run('pushd vendor/eventlet ; PYTHONPATH=.. python -s setup.py --no-user-cfg bdist_egg ; popd', echo=False)
-    ctx.run('pushd vendor/python-fire ; PYTHONPATH=.. python -s setup.py --no-user-cfg bdist_egg ; popd', echo=False)
-    ctx.run('pushd vendor/python-socketio ; PYTHONPATH=.. python -s setup.py --no-user-cfg bdist_egg ; popd', echo=False)
-    ctx.run('pushd vendor/flask ; PYTHONPATH=.. python -s setup.py --no-user-cfg bdist_egg ; popd', echo=False)
-    ctx.run('pushd vendor/Flask-SocketIO ; PYTHONPATH=.. python -s setup.py --no-user-cfg bdist_egg ; popd', echo=False)
-    ctx.run('pushd vendor/itsdangerous ; PYTHONPATH=.. python -s setup.py --no-user-cfg bdist_egg ; popd', echo=False)
-    ctx.run('pushd vendor/jinja ; PYTHONPATH=.. python -s setup.py --no-user-cfg bdist_egg ; popd', echo=False)
-    ctx.run('pushd vendor/werkzeug ; PYTHONPATH=.. python -s setup.py --no-user-cfg bdist_egg ; popd', echo=False)
-    ctx.run('pushd vendor/markupsafe ; PYTHONPATH=.. python -s setup.py --no-user-cfg bdist_egg ; popd', echo=False)  # HAS GCC #
-    ctx.run('pushd vendor/click ; PYTHONPATH=.. python -s setup.py --no-user-cfg bdist_egg ; popd', echo=False)
-    ctx.run('pushd vendor/python-engineio ; PYTHONPATH=.. python -s setup.py --no-user-cfg bdist_egg ; popd', echo=False)
+    for entry in os.listdir('vendor'):
+        entry = os.path.join('vendor', entry)
+        if(os.path.isdir(entry)):
+            egg = glob.glob(entry + '/dist/*py2.7*.egg')
+            if(len(egg) == 0):
+                ctx.run("pushd " + entry + " ; PYTHONPATH=.. python -s setup.py --no-user-cfg bdist_egg ; popd", echo=False)
+                egg = glob.glob(entry + '/dist/*py2.7*.egg')
+            vendors.extend(egg)
 
 
 def add_static_files():
@@ -116,7 +111,7 @@ def generate(ctx):
                 else:
                     zf.writestr(fname, tzf.open(fname).read())
 
-    pprint(zipfile.ZipFile(zfile).namelist())
+    # pprint(zipfile.ZipFile(zfile).namelist())
     # with io.open('/tmp/bcm/bcm.egg', "wb") as diskfile:
     #     diskfile.write(zfile.getvalue())
 
@@ -139,6 +134,17 @@ def generate(ctx):
     os.chmod(installer_path, newmode)
 
     print("[generate.installer] Generated installer.")
+
+
+@task
+def clean(ctx):
+    for entry in os.listdir('vendor'):
+        entry = os.path.join('vendor', entry)
+        if(os.path.isdir(entry)):
+            egg = glob.glob(entry + '/dist/*py2.7*.egg')
+            print egg
+            if(len(egg) > 0):
+                os.unlink(egg[0])
 
 
 @task
