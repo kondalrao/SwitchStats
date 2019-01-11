@@ -23,8 +23,8 @@ files = [
 vendors = []
 
 nxos_libs = {
-    # 'greenlet.so': 'nxos_libs/greenlet.so',
-    # 'markupsafe/_speedups.so': 'nxos_libs/_speedups.so'
+    'greenlet.so': 'nxos_libs/greenlet.so',
+    'markupsafe/_speedups.so': 'nxos_libs/_speedups.so'
 }
 
 

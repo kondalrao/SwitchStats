@@ -55,3 +55,7 @@
 [submodule "vendor/easyprocess"]
 	path = vendor/easyprocess
 	url = https://github.com/ponty/EasyProcess.git
+[submodule "vendor/dnspython"]
+	path = vendor/dnspython
+	url = git://github.com/rthalley/dnspython.git
+	branch = legacy-v1
