@@ -1,6 +1,9 @@
-
+import os
+import logging
 import eventlet
 
+os.environ["EVENTLET_HUB"] = "poll"
+logging.basicConfig(level=logging.DEBUG)
 eventlet.monkey_patch()
 
 
